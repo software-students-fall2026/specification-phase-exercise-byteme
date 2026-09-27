@@ -47,14 +47,19 @@ Findings from the team's independent use of [theslidemachine.com](https://thesli
 
 ## Prior Art & Originality
 
-Our proposal is **Live Structural Control for Slides**. The Slide Machine currently treats a lecture as a linear stream: as the instructor speaks, the system decides whether to update the current slide or create a new one, strictly in speaking order. Real lectures are not linear — instructors introduce side examples, answer student questions, return to earlier concepts, or notice that the AI has organized their content incorrectly — and today they have no way to correct any of that while the lecture is still running. Our proposal gives instructors control over where generated content belongs in the lecture's conceptual structure, without pausing transcription or generation to do it. The guiding principle is that **speaking order does not always equal presentation structure**. This is not a general-purpose slide editor (fonts, colors, themes, and image placement are explicitly out of scope) — it is a coherent set of interactions for correcting and directing *structure* live: topic branching, redirecting the AI's current generation target, merging/splitting/moving/reattaching slides, reclassifying already-generated content, explicit topic-transition cues, and quick undo/recovery for all of the above. Several of these directions trace directly to gaps and weaknesses our own team found while using the live app (see [Review of the Current Application](#review-of-the-current-application) above) — most directly, "no undo button," "no live draft control," "no mechanism to signal returning to an earlier topic," and "a new slide can't be placed near earlier slides on the same topic."
+Our proposal is **Real-Time Editing for Instructors and Students** — one coherent theme with two halves that share the same moment in time: the live lecture, while it is still being captured. The Slide Machine currently treats a lecture as a linear stream generated for an audience of one (the instructor's own screen), decided phrase-by-phrase in strict speaking order, with no way to correct that structure while capture is running and no way for a student to see any of it until the deck is saved and shared afterward. Our proposal gives both sides a live foothold in that process:
 
-**What we checked:** the SDD's Future Work (§18) and Open Questions (§19), the Delivery Roadmap (including its risks & cut-line section and Phase 3 outstanding list), and the repository's open GitHub issues — none address live topic/deck structure, and none propose branching, redirection, retroactive reclassification, structural undo, or topic-transition cues during capture.
+- **Instructor side — structural control.** The instructor gets control over where generated content belongs in the lecture's conceptual structure as it happens: branching a spoken tangent off the main line, redirecting the AI's current generation target, merging/splitting/moving/reattaching slides, retroactively reclassifying already-generated content, explicit topic-transition cues, and undo/recovery for all of the above. The guiding principle is that **speaking order does not always equal presentation structure**.
+- **Student side — live access and private annotation.** A student can open a link the instructor shares while the session is still recording, watch the same deck update live (read-only — students cannot change slide content), and attach a private comment to any slide that only they can see, which stays attached to that slide after the lecture ends and the deck is saved.
 
-- **SDD Future Work (§18)** — the deferred items (local AI models, real-time translation, extracting the STT→generation pipeline into its own service, an MCP agent server, multi-user collaborative editing, seat-based billing, richer analytics/recommendation, a faculty setup guide) are all unrelated to live structural control.
-- **SDD Open Questions (§19)** — none of the still-open questions (plan pricing, pilot exemptions, student roster source, latency targets, image licensing enforcement, image disambiguation depth, Slides export fidelity, coverage-gate scope, preflight concept-set limits, MCP auth/scope, AI-imagery accuracy) touch on deck structure or live correction.
-- **Delivery Roadmap** — the risks & cut-line section and the Phase 3 outstanding list (`CAP-5` live captions, `EDIT-8` duplicate slide, `PLAY-4`/`PLAY-5`, `PREP-1..4` preflight, `IMG-4` AI imagery, hardening) include nothing about structural control, branching, or live correction.
-- **Open GitHub issues** — none propose structural control during capture. The closest related item, issue #27 ("Required Transcript Viewing"), proposes forcing linear, unskippable playback — the opposite concern from ours — and remains unresolved as of this check.
+This is not a general-purpose slide editor (fonts, colors, themes, and image placement are explicitly out of scope) — every capability here is about *structure and live access*, not visual design. Several directions trace directly to gaps and weaknesses our own team found while using the live app (see [Review of the Current Application](#review-of-the-current-application) above) — most directly, "no undo button," "no live draft control," "no mechanism to signal returning to an earlier topic," and "a new slide can't be placed near earlier slides on the same topic."
+
+**What we checked:** the SDD's Future Work (§18) and Open Questions (§19), the Delivery Roadmap (including its risks & cut-line section and Phase 3 outstanding list), and the repository's open GitHub issues — none address live topic/deck structure or live audience access, and none propose branching, redirection, retroactive reclassification, structural undo, topic-transition cues, or a live/private student view during capture.
+
+- **SDD Future Work (§18)** — the deferred items (local AI models, real-time translation, extracting the STT→generation pipeline into its own service, an MCP agent server, **multi-user collaborative editing of a single deck**, seat-based billing, richer analytics/recommendation, a faculty setup guide) are all unrelated to our proposal — including the collaborative-editing item, which is about several people jointly *editing the same shared content*, the opposite of a read-only live view with **private**, per-student annotations nobody else can see or change.
+- **SDD Open Questions (§19)** — none of the still-open questions (plan pricing, pilot exemptions, student roster source, latency targets, image licensing enforcement, image disambiguation depth, Slides export fidelity, coverage-gate scope, preflight concept-set limits, MCP auth/scope, AI-imagery accuracy) touch on deck structure, live correction, or live audience access.
+- **Delivery Roadmap** — the risks & cut-line section and the Phase 3 outstanding list (`CAP-5` live captions, `EDIT-8` duplicate slide, `PLAY-4`/`PLAY-5`, `PREP-1..4` preflight, `IMG-4` AI imagery, hardening) include nothing about structural control, branching, live correction, or live student access.
+- **Open GitHub issues** — none propose structural control or live audience access during capture. The closest related item, issue #27 ("Required Transcript Viewing"), proposes forcing linear, unskippable playback — the opposite concern from ours — and remains unresolved as of this check.
 
 **Adjacent existing/shipped features we checked each proposed capability against, to avoid re-proposing them:**
 
@@ -64,12 +69,56 @@ Our proposal is **Live Structural Control for Slides**. The Slide Machine curren
 - **Retroactive adjustment** — no mechanism anywhere lets an instructor reclassify already-generated content (e.g., turn an existing slide into a branch after realizing the discussion became a tangent); this depends on the branching concept above, which is new.
 - **Topic transitions** — `CAP-4` already ships a fixed voice-command vocabulary (start/stop/pause/resume/rewind/fast-forward), and `GEN-8`'s opt-in manual new-slide mode already supports an explicit "next slide" cue to force a slide boundary. None of these carry topic-level meaning, though — there is no "continue previous topic" or "return to main topic" cue; the existing commands only mark *that* a boundary should occur, never *why*.
 - **Undo / quick recovery** — an undo/redo control already exists, but it is scoped entirely to whiteboard pen strokes (`EDIT-5`, "Undo / redo, per slide"); there is no undo for slide content edits, merges, splits, moves, or any other structural change, which matches our own team's review finding of "no undo button" for the editing experience generally.
+- **Live/shared student access** — `SHARE-1` only covers a **saved** deck's permalink, shared after the fact; there is nothing that lets a student open a link and watch a deck update **while it is still being generated**.
+- **Private per-slide comments** — no comment/annotation surface exists anywhere in the app, for any user, private or otherwise.
 
-**What is new:** live, instructor-driven control over the deck's conceptual structure while capture is still running — topic branching with a one-action return to the main thread; a visible, redirectable generation target; manual merge/split/move/reattach of slides during (not only after) the lecture; retroactive reclassification of already-generated slides; explicit topic-transition cues beyond a bare slide boundary; and undo/recovery that covers structural changes, not just whiteboard strokes. None of this appears in the current application, the SDD, the Roadmap, or any open issue or pull request we reviewed.
+**What is new:** live, instructor-driven control over the deck's conceptual structure while capture is still running — topic branching with a one-action return to the main thread; a visible, redirectable generation target; manual merge/split/move/reattach of slides during (not only after) the lecture; retroactive reclassification of already-generated slides; explicit topic-transition cues beyond a bare slide boundary; undo/recovery that covers structural changes, not just whiteboard strokes; a branch slide that stays attached to its main-line slide even across export into different folders — **and**, on the student side, a live, read-only, shareable view of the deck while it is still generating, with private per-slide comments that persist after the deck is saved. None of this appears in the current application, the SDD, the Roadmap, or any open issue or pull request we reviewed.
 
 ## Stakeholders
 
-See instructions. Delete this line and replace with the name(s) of the stakeholder(s) you interviewed and lists showing their goals/needs, and problems/frustrations. Note which type of user each stakeholder represents. You may use pseudonyms or partial names to maintain their privacy, but you must privately share their full names and contact information as part of your submission of this exercise
+### Instructors
+
+- **Baohua** — Differential Geometry TA
+- **Yuchen** — Calculus III TA
+
+**Goals / needs:**
+
+1. Keep unscripted, off-topic Q&A during a review session out of the official generated slides, so slides stay focused on useful instructional content rather than every spoken exchange.
+2. Support a workflow built around professor-assigned quizzes and pre-prepared examples, rather than fully on-the-fly generation.
+3. Reliable speech recognition for math/technical vocabulary, including tolerance for non-standard pronunciation and disambiguation of similar-sounding terms across disciplines.
+4. Preserve useful explanations and examples as organized notes that students can review after the session.
+5. Accurately represent mathematical content — equations, symbols, and graphics — that speech-to-text alone cannot reliably capture.
+
+**Problems / frustrations:**
+
+1. Real-time slide generation itself creates pressure, since the TA has to teach while also worrying about messy or tangential Q&A being recorded as "official" material.
+2. Math TAs generally prefer the blackboard; the format doesn't obviously fit how they already like to teach, especially for handwritten equations, symbols, diagrams, and graphs.
+3. When the AI misjudges a topic shift and files content under the wrong slide, the only fix today is reorganizing the deck by hand after the session ends.
+4. Review sessions are highly non-linear — unexpected questions, tangents, and fragmented conversations — which should not automatically become slides.
+5. Speech recognition may misinterpret specialized terminology, particularly similar-sounding technical terms or non-standard pronunciation.
+
+### Students
+
+- **Heidi L.**
+- **Jocelyn Y.**
+- **Judy Y.**
+- **Urangoo C.**
+- **Riko E.**
+
+**Goals / needs:**
+
+1. A visual marker distinguishing branch/tangent slides from main-line content, so it's clear what's supplementary versus core lecture material when reviewing.
+2. Any live correction the instructor makes (e.g., reclassifying a slide's topic, or merging it back into the main line) should show up clearly in the final shared deck, rather than leaving it ambiguous what changed.
+3. Slides that accurately reflect what the instructor explained during the lecture, including important examples and explanations.
+4. An easy way to review topics that were difficult to understand, without having to go through the entire presentation again.
+5. Lecture materials organized so it's easy to follow the order and connection between different topics.
+
+**Problems / frustrations:**
+
+1. May miss important information when the instructor moves quickly through a topic or changes topics during the lecture.
+2. May have difficulty remembering where a specific topic or explanation appeared when reviewing the lecture later.
+3. May have difficulty finding important information when a lecture contains a large number of slides or a lot of content.
+4. Worried that content seen live during the lecture may not match the final shared deck, since the instructor can reorganize, merge, or reclassify slides afterward, leaving their own notes/screenshots out of sync with the official version.
 
 ## Product Vision Statement
 
@@ -77,7 +126,37 @@ See instructions. Delete this line and place your Product Vision Statement here 
 
 ## User Requirements
 
-See instructions. Delete this line and place a list of your User Stories here, grouped by type of user. These should describe functionality that is new or changed, not functionality the app already has.
+### Instructors
+
+1. As an instructor, I want to mark a spoken aside as a tangent while I'm still talking, so that it becomes a branch off the current slide.
+2. As an instructor, I want to see which topic the AI is currently adding new content to, so that I can redirect it to a different slide if it's about to file something in the wrong place.
+3. As an instructor, I want to reclassify an already-generated slide as a branch after I realize the discussion turned into a tangent, so that the deck's structure still reflects what actually happened even though I didn't catch it at the moment.
+4. As an instructor, I want to merge a branch slide back into its main-line slide, so that content that turned out not to be a real tangent doesn't stay separated for no reason.
+5. As an instructor, I want to delete a branch slide I no longer need, so that irrelevant tangents don't clutter the final deck.
+6. As an instructor, I want to undo my last structural action (branch, merge, split, or reclassification) immediately after making it, so that I can recover quickly if the system misunderstood my intent.
+7. As an instructor, I want to be notified when marking a tangent fails due to a network or recognition error, so that I know the content was captured as a normal slide instead and isn't lost.
+8. As an instructor, I want to move a branch slide to attach it to a different main-line slide, so that I can correct it if it ended up associated with the wrong topic.
+9. As an instructor, I want to explicitly signal "continue previous topic" to rejoin an earlier main-line slide instead of starting a new one, so that returning to something I already covered doesn't fragment the deck.
+10. As an instructor, I want to split an already-generated slide into two once I realize it covers two separate topics, so that each topic gets its own slide without waiting for a post-lecture reformat.
+11. As an instructor, I want to generate a shareable link to the deck while a session is still live, so that students can follow along on their own devices in real time.
+12. As an instructor, I want a branch slide to stay attached to its main-line slide when exporting the deck, even if the two are organized into different folders, so that a branch is never separated from the topic it belongs to.
+13. As a mathematics instructor, I want to quickly correct a misrecognized technical term, spoken mathematical expression, or diagram/graph the system couldn't capture from speech alone, without stopping the lecture, so that later generated slides use the correct terminology and notation without requiring me to stop speaking.
+
+### Students
+
+1. As a student, I want to see when the instructor corrected or reclassified a slide during the lecture, so that the shared deck doesn't leave me confused about which version of a slide is the final one.
+2. As a student, I want to see supplementary branches connected to a lecture topic, so that I can explore related material without losing the main lecture structure.
+3. As a student, I want to see questions other students have already asked and the professor's answers, so that I can find answers to my own questions without having to ask the professor again.
+4. As a student, I want to open a supplementary branch from the point where it appears in the lecture, so that I can understand how the related material connects to the main topic.
+5. As a student, I want to return to the main lecture from a supplementary branch, so that I can continue following the lecture without losing my place.
+6. As a student, I want to skip a supplementary branch, so that I can stay focused on the main lecture when the related material is not relevant to me.
+7. As a student, I want to filter branch/tangent slides out of the deck when studying for the quiz, so that I only review the main-line content the lecture was actually about.
+8. As a student, I want to see which slides were reorganized after the live session ended, so that notes I took during the original lecture don't reference a structure that no longer exists.
+9. As a student, I want to open a live-shared link to the deck while the instructor is still generating it, so that I can follow the lecture on my own device as it happens.
+10. As a student, I want to add a private comment to a slide while viewing the live-shared deck, so that I can record my own thoughts or questions without anyone else seeing them.
+11. As a student, I want my private comments to remain attached to their slide after the session ends and the deck is saved, so that reviewing later feels like looking at my own personal copy.
+12. As a student, I want to edit or delete a private comment I made, so that I can correct or remove notes I no longer need.
+13. As a student, I want the live-shared deck to update automatically as the instructor generates or restructures slides, so that I'm always seeing the current state of the lecture without needing to refresh or re-open the link.
 
 ## Activity Diagrams
 
