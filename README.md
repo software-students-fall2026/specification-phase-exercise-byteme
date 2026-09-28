@@ -103,7 +103,7 @@ Several of these directions trace directly to gaps our own team found while usin
 
 ## Product Vision Statement
 
-The Slide Machine should let instructors branch a spoken tangent off the main slide — instead of losing it or letting it derail the lecture — and let students follow that same live deck as it's generated and privately annotate it as their own personal copy, giving both sides real-time control over a lecture that today is only editable, and only visible, after it's over.
+The Slide Machine should let instructors branch a spoken tangent off the main slide live, and let students follow that same deck in real time with their own privately annotated copy.
 
 ## User Requirements
 
