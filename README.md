@@ -141,15 +141,83 @@ The Slide Machine should let instructors branch a spoken tangent off the main sl
 
 ## Activity Diagrams
 
-See instructions. Delete this line and place images of your UML Activity diagrams here, each with the text of the user story it illustrates.
+### Instructors
+
+**User Story:** As an instructor, I want to mark a spoken aside as a tangent while I'm still talking, so that it becomes a branch off the current slide.
+
+![Instructor marks a spoken aside as a tangent, creating a branch slide](diagrams/instructor-1-mark-tangent-tracy.png)
+
+**User Story:** As a mathematics instructor, I want to quickly correct a misrecognized technical term, spoken mathematical expression, or diagram/graph the system couldn't capture from speech alone, without stopping the lecture, so that later generated slides use the correct terminology and notation without requiring me to stop speaking.
+
+![Instructor flags and corrects a misrecognized technical term live, and the system remembers the correction](diagrams/instructor-13-terminology-correction-jingjing.webp)
+
+### Students
+
+**User Story:** As a student, I want to see questions other students have already asked and the professor's answers, so that I can find answers to my own questions without having to ask the professor again.
+
+![Student checks the Q&A branch to see if their question was already asked and answered before asking the instructor](diagrams/student-3-qa-visibility-emma.png)
+
+**User Story:** As a student, I want to open a supplementary branch from the point where it appears in the lecture, so that I can understand how the related material connects to the main topic.
+
+![Student opens a supplementary branch from the lecture slide, explores it, and returns to the main lecture](diagrams/student-4-open-branch-uuree.webp)
 
 ## Wireframes
 
-See instructions. Delete this line and place your wireframe diagrams here, covering every new screen and every existing screen your proposal changes, for every type of user.
+### Instructors
 
+**Live Session (changed screen)** — the existing live-capture screen, with new "Branch" and "Real-time Sharing" controls added to its toolbar. Clicking "Real-time Sharing" opens a link to copy and share with students.
+
+![Live session screen with Branch and Real-time Sharing controls, and the share-link panel open](wireframes/instructor-1-live-session-realtime-sharing.webp)
+
+**Branch slide (new screen)** — a branch slide created from the Branch button, shown attached beneath the main slide it diverged from.
+
+![A new branch slide attached beneath the main slide](wireframes/instructor-2-branch-slide-created.webp)
+
+**Branch slide, delete action (new screen)** — the branch slide's delete control, for removing a branch the instructor no longer needs.
+
+![A branch slide labeled Branch1 with a Delete action](wireframes/instructor-3-branch-delete.webp)
+
+**Lecture settings (changed screen)** — the existing lecture settings page, with the lecture title now showing the Main/Branch1/Branch2 breakdown so each part of the lecture can be named and exported separately while staying attached to the same lecture.
+
+![Lecture settings screen showing the Main / Branch1 / Branch2 title breakdown](wireframes/instructor-4-lecture-settings-naming.webp)
+
+### Students
+
+**Add private comment (new screen)** — the "Add comment" control opens a blank comment box on the branch slide the student is viewing.
+
+![Student opens a blank new-comment box on a branch slide](wireframes/student-1-add-comment-compose.webp)
+
+**Edit/delete private comment (new screen)** — an existing comment shown with a Delete action, so a student can remove a comment they no longer need.
+
+![Student views an existing comment with a Delete option](wireframes/student-2-comment-delete.webp)
+
+**Comment indicator, collapsed (new screen)** — the "Add comment" control and an existing comment shown collapsed as small tags, so a student can see a comment exists without it covering the slide.
+
+![Add comment control and an existing comment shown collapsed as small tags above a branch slide](wireframes/student-3-comment-collapsed.webp)
+
+**Branch slide with comment entry point (new screen)** — the "Add comment" control as it appears directly on a branch slide the student is viewing.
+
+![Branch slide with an Add comment control at the bottom](wireframes/student-4-branch-slide-add-comment.webp)
+
+**Compose a comment on the branch slide (new screen)** — the new-comment box open directly over the branch slide, with separate confirm controls for the comment and for the branch view.
+
+![Student composes a new comment while viewing a branch slide](wireframes/student-5-branch-slide-comment-overlay.webp)
+
+**Comment tags on the branch slide, collapsed (new screen)** — the Add comment control and an existing comment shown as collapsed tags directly on the branch slide.
+
+![Add comment control and an existing comment shown as collapsed tags on a branch slide](wireframes/student-6-branch-slide-comment-collapsed.webp)
+
+**Comment detail with delete, on the branch slide (new screen)** — an existing comment opened on the branch slide with a Delete option.
+
+![Student opens an existing comment on the branch slide with a Delete option](wireframes/student-7-branch-slide-comment-detail-delete.webp)
+
+**Save/export with private comments (same screen as the instructor's, different meaning for this user)** — the same Lecture settings screen instructor uses to name Main/Branch1/Branch2 is also how a student saves their own copy of the deck, with their private comments carried along, when they export it.
+
+![Lecture settings screen, used here to save the student's own copy of the deck with their private comments attached](wireframes/instructor-4-lecture-settings-naming.webp)
 ## Clickable Prototype
 
-See instructions. Delete this line and place a publicly-accessible link to your clickable prototype here.
+- **Instructor flow:** [Figma prototype](https://www.figma.com/proto/yj9iB0YIvhusXyW7WlESZT/Wireframe-ByteMe?node-id=0-1&t=kXF9qhMqR7ksfjA1-1)
+- **Student flow:** [Figma prototype](https://www.figma.com/proto/yj9iB0YIvhusXyW7WlESZT/Wireframe-ByteMe?node-id=30-2&t=kXF9qhMqR7ksfjA1-1)
 
 ## Stakeholder Demo
 
