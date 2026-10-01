@@ -221,8 +221,10 @@ The Slide Machine should let instructors branch a spoken tangent off the main sl
 
 ## Stakeholder Demo
 
-See instructions. Delete this line and place a link to the deck The Slide Machine generated during your presentation here, after you have presented.
+[Generated deck](https://theslidemachine.com/d/untitled-b0b0f64e)
 
 ## Exit Ticket
 
-See instructions. Delete this line and place a link to the exit-ticket quiz you generated from your demo deck and distributed to the class, along with a short note on what — if anything — you had to correct in the generated questions before publishing.
+[Exit-ticket quiz](https://docs.google.com/forms/d/e/1FAIpQLSdXsUXZjz86uBnFOLLVQ85ILAulQaZB0-lxLsOkjkF_5BbdUQ/viewform)
+
+**Corrections before publishing:** We reviewed the generated questions and found nothing that needed fixing.
